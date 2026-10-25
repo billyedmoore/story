@@ -3,3 +3,6 @@ build/
 
 # Personal reading data: exports, converted output, overrides, start dates
 personal/
+
+# Wrangler local state
+.wrangler/
