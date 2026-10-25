@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StoryGraph to Goodreads</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="page">
+  <header>
+    <h1>StoryGraph to Goodreads</h1>
+    <p class="lede">Convert your StoryGraph library export into the Goodreads CSV format that Fable and other apps can import.
+      Everything happens in your browser; your file is never uploaded.</p>
+  </header>
+
+  <section aria-labelledby="s1">
+    <h2 id="s1"><span class="chap">1</span>Get your StoryGraph export</h2>
+    <p><a href="https://app.thestorygraph.com/user-export" target="_blank" rel="noopener">Open StoryGraph’s export page</a>
+      (you’ll need to be logged in), generate your library export, and download the CSV once StoryGraph emails you that it’s ready.</p>
+  </section>
+
+  <section aria-labelledby="s2">
+    <h2 id="s2"><span class="chap">2</span>Choose the file</h2>
+    <label id="drop" class="drop" for="file">
+      <input id="file" type="file" accept=".csv,text/csv">
+      <span class="drop-title">Drop your export here or <u>browse</u></span>
+      <span id="file-name" class="muted">No file chosen</span>
+    </label>
+  </section>
+
+  <section id="result" hidden aria-labelledby="s3" aria-live="polite">
+    <h2 id="s3"><span class="chap">3</span>Download</h2>
+    <p id="summary"></p>
+    <ul id="notes" class="notes"></ul>
+    <button id="download" type="button" class="primary">Download goodreads_library_export.csv</button>
+    <div class="table-wrap">
+      <table id="preview">
+        <caption>First ten books</caption>
+        <thead><tr><th>Title</th><th>Author</th><th>Shelf</th><th>Rating</th><th>ISBN-13</th><th>Binding</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <details id="advanced">
+    <summary>Advanced: overrides</summary>
+    <div class="adv">
+      <p>Fix individual books before converting. Each entry matches every book whose title <em>starts with</em> the text you give.
+        Use it to set an ISBN (so the right edition imports), change the format, or leave a book out.</p>
+
+      <form id="add" autocomplete="off">
+        <div class="row">
+          <label>Title starts with<input id="o-title" required placeholder="The Example Book"></label>
+          <label>ISBN<input id="o-isbn" inputmode="numeric" placeholder="9780306406157"></label>
+          <label>Format
+            <select id="o-format">
+              <option value="">(unchanged)</option>
+              <option>hardcover</option><option>paperback</option><option>digital</option><option>audio</option>
+            </select>
+          </label>
+          <label class="check"><input id="o-exclude" type="checkbox"> Leave out</label>
+          <button type="submit">Add</button>
+        </div>
+      </form>
+
+      <label class="block" for="overrides">Overrides (JSON)</label>
+      <textarea id="overrides" spellcheck="false" rows="9"
+        placeholder='{&#10;  "The Example Book": "9780306406157",&#10;  "Another Title": { "isbn": "9780306406157", "format": "paperback" },&#10;  "A Book To Leave Out": { "exclude": true }&#10;}'></textarea>
+      <p id="ov-status" class="status" role="status"></p>
+    </div>
+  </details>
+
+  <p id="error" class="error" role="alert" hidden></p>
+
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>
