@@ -1,7 +1,10 @@
-# sg2gr
+# StoryGraph to Goodreads 
 
-Convert a StoryGraph library export (CSV) into Goodreads CSV format. Pure C99, no I/O in the
-library, so the same code builds as a native CLI and as a ~24 KB WebAssembly module.
+> [!NOTE]
+> Code AI written by Claude Sonnet 5.5.
+
+Convert a StoryGraph library export (CSV) into Goodreads CSV format
+using Pure C99. Useful to import StoryGraph into other services.
 
 ## Command line
 
