@@ -1,0 +1,8 @@
+# Build output
+c/build/
+
+# Personal reading data: StoryGraph exports, converted output and per-user overrides
+*storygraphexport*.csv
+poc/goodreads_library_export.csv
+poc/isbn_overrides.json
+*:Zone.Identifier
