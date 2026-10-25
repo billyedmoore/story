@@ -37,18 +37,17 @@ clean:
 
 .PHONY: all test wasm clean
 
-# Static web app: build/web/ can be served by any static file server.
-build/web: build/sg2gr.wasm $(wildcard web/* web/fonts/*) wasm/sg2gr.mjs
-	mkdir -p $@
-	cp web/index.html web/style.css web/app.js wasm/sg2gr.mjs build/sg2gr.wasm $@/
-	cp -R web/fonts $@/
-	touch $@
+# Static web app, assembled into public/. public/ is committed because the hosting build
+# image has no clang to build the wasm; run `make web` and commit it after changing the C code.
+SITE := public
+web: build/sg2gr.wasm
+	mkdir -p $(SITE)
+	cp web/index.html web/style.css web/app.js wasm/sg2gr.mjs build/sg2gr.wasm $(SITE)/
+	cp -R web/fonts $(SITE)/
 
-web: build/web
-
-serve: build/web
+serve: web
 	@echo "http://localhost:8000"
-	cd build/web && python3 -m http.server 8000
+	cd $(SITE) && python3 -m http.server 8000
 
 PREFIX ?= /usr/local
 install: build/sg2gr
